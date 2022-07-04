@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="DuelLinksBot.UI.Tabs.MainTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <CheckBox Content="Farm Stage-Events" IsChecked="{Binding Path=FarmStageEvent, Mode=TwoWay}" />
+        <CheckBox Content="Farm Street-Replay" IsChecked="{Binding Path=FarmStreetReplay, Mode=TwoWay}" />
+        <CheckBox Content="Farm NPC" IsChecked="{Binding Path=FarmNpc, Mode=TwoWay}" />
+        <StackPanel Orientation="Horizontal" IsEnabled="False">
+            <CheckBox Name="FarmGateChb" Content="Farm Gate" IsChecked="{Binding Path=FarmGate, Mode=TwoWay}" />
+            <TextBlock Text=" (req. MOD)" Foreground="Red" FontWeight="Bold" VerticalAlignment="Center"/>
+            <mah:NumericUpDown Maximum="99" Minimum="1"
+                               Value="{Binding GateDuelsInARow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               IsEnabled="{Binding ElementName=FarmGateChb, Path=IsChecked,
+                                 TargetNullValue=false}" />
+            <TextBlock Text="duels in a row" VerticalAlignment="Center"/>
+        </StackPanel>
+        <CheckBox Content="Collect Gifts" IsChecked="{Binding Path=ReceiveGifts, Mode=TwoWay}" />
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="DuelLinksBot.UI.Tabs.AdvancedTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <GroupBox Header="Push Notification on Error">
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Pushbullet API-Token" />
+                    <TextBox Text="{Binding Path=PushbulletApiToken, Mode=TwoWay}" Width="220"
+                             VerticalContentAlignment="Center" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Sleep Times (ms)">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" MinWidth="50"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Content="Between template double-checks"/>
+                <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding SleepForTemplateDoubleCheck, Mode=TwoWay}"/>
+                <Label Grid.Column="0" Grid.Row="1" Content="After Duelist Search"/>
+                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding SleepAfterDuelistSearch, Mode=TwoWay}"/>
+                <Label Grid.Column="0" Grid.Row="2" Content="After Stage-Event"/>
+                <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding SleepAfterStageEvents, Mode=TwoWay}"/>
+                <Label Grid.Column="0" Grid.Row="3" Content="Checking World Offset"/>
+                <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding SleepForCheckingWorld, Mode=TwoWay}"/>
+                <Label Grid.Column="0" Grid.Row="4" Content="After General Action"/>
+                <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding SleepAfterGeneralAction, Mode=TwoWay}"/>
+                <Label Grid.Column="0" Grid.Row="5" Content="After Long UI Action"/>
+                <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding SleepAfterLongUiAction, Mode=TwoWay}"/>
+            </Grid>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

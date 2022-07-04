@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="DuelLinksBot.UI.Tabs.StatisticsTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ui="clr-namespace:DuelLinksBot.Utilities.Internal.UI"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ui:MoreThanZeroConverter x:Key="moreThanZeroConverter" />
+        <ui:WinRateCellTextToColorConverter x:Key="winRateConverter" />
+        <Style x:Key="CenteredColoredColumn" TargetType="DataGridCell">
+            <Style.Triggers>
+                <DataTrigger
+                    Binding="{Binding Path=Content.Text,
+                        RelativeSource={RelativeSource Self},
+                        Converter={StaticResource moreThanZeroConverter}}"
+                    Value="True">
+                    <Setter Property="Foreground" Value="Green" />
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="FontWeight" Value="DemiBold" />
+                </DataTrigger>
+                <DataTrigger
+                    Binding="{Binding Path=Content.Text,
+                        RelativeSource={RelativeSource Self},
+                        Converter={StaticResource moreThanZeroConverter}}"
+                    Value="False">
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="FontWeight" Value="Normal" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="putRedOnMoreThanZero" TargetType="TextBlock">
+            <Style.Triggers>
+                <DataTrigger
+                    Binding="{Binding Path=Content.Text,
+                        RelativeSource={RelativeSource Self},
+                        Converter={StaticResource moreThanZeroConverter}}"
+                    Value="True">
+                    <Setter Property="Foreground" Value="Red" />
+                    <Setter Property="FontWeight" Value="DemiBold" />
+                </DataTrigger>
+                <DataTrigger
+                    Binding="{Binding Path=Content.Text,
+                        RelativeSource={RelativeSource Self},
+                        Converter={StaticResource moreThanZeroConverter}}"
+                    Value="False">
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="FontWeight" Value="Normal" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Bot started: " FontWeight="Bold" />
+                <TextBlock VerticalAlignment="Center"
+                           Text="{Binding Path=OtherStats.Others.BotStartTime, UpdateSourceTrigger=PropertyChanged,
+                    StringFormat='dd.MM.yyyy HH:mm:ss', TargetNullValue=' -- '}"
+                           Width="300" />
+            </StackPanel>
+            <GroupBox Header="Farmed Duels">
+                <Grid>
+                    <DataGrid ItemsSource="{Binding DuelStatistics}" AutoGenerateColumns="False"
+                              FrozenColumnCount="1" IsReadOnly="True" AlternatingRowBackground="Azure">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="Auto"
+                                                Binding="{Binding Description}"
+                                                Header="" />
+                            <DataGridTextColumn Width="Auto" CellStyle="{StaticResource CenteredColoredColumn}"
+                                                Binding="{Binding AmountOfDuels}"
+                                                Header="Amount" />
+                            <DataGridTextColumn Width="Auto" CellStyle="{StaticResource CenteredColoredColumn}"
+                                                Binding="{Binding AverageTimeForDuel, StringFormat=mm\\:ss,
+                                      TargetNullValue=' -- '}"
+                                                Header="Avg. Time (min)" />
+                            <DataGridTextColumn Width="*"
+                                                Binding="{Binding WinRate, StringFormat=N2, TargetNullValue=' -- ' }"
+                                                Header="WinRate (%)">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.Foreground"
+                                                Value="{Binding WinRate, Converter={StaticResource winRateConverter}}" />
+                                        <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Errors">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Network Errors:" FontWeight="Bold" />
+                    <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"
+                               Style="{StaticResource putRedOnMoreThanZero}"
+                               Text="{Binding Path=OtherStats.Others.AmountOfNetworkErrors}" />
+                    <Label Grid.Column="0" Grid.Row="1" Content="Other Errors:" FontWeight="Bold" />
+                    <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"
+                               Style="{StaticResource putRedOnMoreThanZero}"
+                               Text="{Binding Path=OtherStats.Others.AmountOfOtherErrors}" />
+                </Grid>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

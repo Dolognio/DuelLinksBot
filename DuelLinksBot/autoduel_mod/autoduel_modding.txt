@@ -1,0 +1,3 @@
+In ScenarioUIDuelViewController.NotificationStackEntry() autoDuel auf true setzen --> zeigt Auto-Duel Button am Gate
+
+Text => UnityEngine.UI.Text

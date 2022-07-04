@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="DuelLinksBot.UI.CustomControls.GateCharControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ui-binding-utilities="clr-namespace:DuelLinksBot.Utilities.Internal.UI"
+             xmlns:game="clr-namespace:DuelLinksBot.Utilities.Internal.Game"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="90" />
+            <ColumnDefinition Width="45" />
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="40" />
+            <ColumnDefinition Width="55" />
+        </Grid.ColumnDefinitions>
+        <CheckBox Name="GateCharEnabledCb" Grid.Column="0" Content="{Binding Duelist}" VerticalAlignment="Center"
+                  VerticalContentAlignment="Center" FontWeight="DemiBold"
+                  IsChecked="{Binding Path=GateCharConfig.Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Grid.Column="1" Content="Times:"
+               IsEnabled="{Binding ElementName=GateCharEnabledCb, Path=IsChecked,
+                                 TargetNullValue=false}" />
+        <mah:NumericUpDown Grid.Column="2" Maximum="99" Minimum="-1"
+                           Value="{Binding Path=GateCharConfig.Repetitions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                           IsEnabled="{Binding ElementName=GateCharEnabledCb, Path=IsChecked,
+                                 TargetNullValue=false}" />
+        <Label Grid.Column="3" Content="Level:"
+               IsEnabled="{Binding ElementName=GateCharEnabledCb, Path=IsChecked,
+                                 TargetNullValue=false}" />
+        <ComboBox Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"
+                  ItemsSource="{Binding Source={ui-binding-utilities:EnumBindingSource {x:Type game:DuelistLevel}}}"
+                  SelectedValue="{Binding Path=GateCharConfig.DuelistLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  IsEnabled="{Binding ElementName=GateCharEnabledCb, Path=IsChecked,
+                                 TargetNullValue=false}" />
+    </Grid>
+</UserControl>

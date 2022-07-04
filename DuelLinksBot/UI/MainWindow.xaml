@@ -1,0 +1,66 @@
+﻿<mahapps:MetroWindow x:Class="DuelLinksBot.UI.MainWindow"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+                     xmlns:tabs="clr-namespace:DuelLinksBot.UI.Tabs"
+                     xmlns:customControls="clr-namespace:DuelLinksBot.UI.CustomControls"
+                     mc:Ignorable="d" Icon="../../bot_icon.ico"
+                     Title="Duel-Links Bot" Height="425" Width="765">
+    <mahapps:MetroWindow.Resources>
+        <Style x:Key="GridOnTabItem" TargetType="{x:Type Grid}" BasedOn="{x:Null}">
+            <Setter Property="Margin" Value="5" />
+        </Style>
+    </mahapps:MetroWindow.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Content="Log" Grid.Column="0" Grid.Row="0" Style="{StaticResource MetroHeaderLabel}" />
+        <customControls:LogViewer Width="Auto" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" />
+        <GridSplitter HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="0"
+                      Grid.RowSpan="3" ResizeBehavior="PreviousAndNext"
+                      Width="3" Background="{DynamicResource AccentColorBrush}" />
+        <mahapps:MetroTabControl Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Name="MainWindowTabControl">
+            <mahapps:MetroTabItem Header="Statistics">
+                <Grid Style="{StaticResource GridOnTabItem}">
+                    <tabs:StatisticsTab />
+                </Grid>
+            </mahapps:MetroTabItem>
+            <mahapps:MetroTabItem Header="General">
+                <Grid Style="{StaticResource GridOnTabItem}">
+                    <tabs:MainTab />
+                </Grid>
+            </mahapps:MetroTabItem>
+            <mahapps:MetroTabItem Header="Gate-Config">
+                <Grid Style="{StaticResource GridOnTabItem}">
+                    <tabs:GateConfigTab />
+                </Grid>
+            </mahapps:MetroTabItem>
+            <mahapps:MetroTabItem Header="Advanced">
+                <Grid Style="{StaticResource GridOnTabItem}">
+                    <tabs:AdvancedTab />
+                </Grid>
+            </mahapps:MetroTabItem>
+            <mahapps:MetroTabItem Header="Debugging">
+                <Grid Style="{StaticResource GridOnTabItem}">
+                    <tabs:DebugTab />
+                </Grid>
+            </mahapps:MetroTabItem>
+        </mahapps:MetroTabControl>
+        <StackPanel DockPanel.Dock="Bottom" Grid.Column="2" Grid.Row="2">
+            <Button Name="StartBotBtn" Margin="10" Click="ButtonStartBot_OnClick" Content="Start" />
+            <Label Name="SpaceBotHintLbl" Background="IndianRed"
+                   Content="To Pause the bot, press 'SPACE' key on your keyboard!"
+                   Visibility="Hidden" />
+        </StackPanel>
+    </Grid>
+</mahapps:MetroWindow>
